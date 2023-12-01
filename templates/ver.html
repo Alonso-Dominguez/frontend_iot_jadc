@@ -162,35 +162,56 @@
                 <span class="switch-label">Encendido</span>
             </div>
             <p>
-                <button type="button" onclick="handleButtonClick()">Enviar</button>
+                <button type="button" onclick="updateDispositivo()">Enviar</button>
                 <a href="/">Regresar</a>
             </p>
         </center>
     </form>
 
     <script>
-        function handleButtonClick() {
+        document.addEventListener('DOMContentLoaded', function () {
+            // Obtén el parámetro 'id' de la URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const dispositivo = urlParams.get('identificador');
+
+            // Función para obtener un solo registro por su ID
+            function getDispositivoById(dispositivo) {
+                const request = new XMLHttpRequest();
+                request.open('GET', "https://backend-iot-jadc-e65f36ce2ffb.herokuapp.com/dispositivos/" + dispositivo);
+                request.send();
+
+                request.onload = function () {
+                    if (request.status === 200) {
+                        const dispositivo_e = JSON.parse(request.responseText);
+                        console.log(dispositivo_e);
+
+                        const identificador = document.getElementById("identificador");
+                        const nombre = document.getElementById("nombre");
+
+                        identificador.value = dispositivo_e.id;
+                        nombre.value = dispositivo_e.dispositivo;
+
+                        document.getElementById("status").checked = dispositivo_e.valor === 1;
+                    } else {
+                        console.error('Error al obtener el dispositivo:', request.status, request.statusText);
+                    }
+                };
+            }
+
+            // Llama a la función para obtener y mostrar el registro
+            getDispositivoById(dispositivo);
+        });
+
+        function updateDispositivo() {
             var identificador = document.getElementById("identificador").value;
             var nombre = document.getElementById("nombre").value;
             var estadoCheckbox = document.getElementById("status").checked;
 
-            switch (true) {
-                case estadoCheckbox:
-                    // Código cuando el estado es verdadero
-                    console.log("Estado Verdadero");
-                    // Puedes agregar más lógica aquí si es necesario
-                    break;
-                default:
-                    // Código cuando el estado es falso
-                    console.log("Estado Falso");
-                    // Puedes agregar más lógica aquí si es necesario
-                    break;
-            }
+            var estado = estadoCheckbox ? 1 : 0;
 
-            // Puedes agregar aquí cualquier otra lógica que necesites.
-            // También puedes llamar a la función updateData() si es necesario.
+            console.log(estado);
+            updateData(identificador, nombre, estado);
         }
     </script>
 </body>
-
 </html>
