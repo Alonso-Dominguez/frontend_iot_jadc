@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dispositivos</title>
+    <title>Potenciometro</title>
     <link rel="stylesheet" href="../static/css/styles.css">
-    <script type="text/javascript" src="../static/js/update.js"></script>
+    <script type="text/javascript" src="../static/js/dispositivo.js"></script>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -29,107 +29,16 @@
             margin: 20px 0;
         }
 
-        form {
-            width: 80%;
-            margin: 0 auto;
-        }
-
-        label {
-            display: block;
+        #detalle {
             margin: 10px 0;
-        }
-
-        input:read-only {
-            background-color: aliceblue;
-            text-align: center;
-        }
-
-        input[type="text"] {
-            width: 20%;
-            padding: 10px;
-            margin-top: 5px;
-        }
-
-        .switch-container {
-            display: flex;
-            align-items: center;
-        }
-
-        .switch-label {
-            margin-right: 10px;
-        }
-
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 60px;
-            height: 34px;
-        }
-
-        .switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            -webkit-transition: .4s;
-            transition: .4s;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 26px;
-            width: 26px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            -webkit-transition: .4s;
-            transition: .4s;
-        }
-
-        input:checked+.slider {
-            background-color: #2196F3;
-        }
-
-        input:focus+.slider {
-            box-shadow: 0 0 1px #2196F3;
-        }
-
-        input:checked+.slider:before {
-            -webkit-transform: translateX(26px);
-            -ms-transform: translateX(26px);
-            transform: translateX(26px);
-        }
-
-        .slider.round {
-            border-radius: 34px;
-        }
-
-        .slider.round:before {
-            border-radius: 50%;
-        }
-
-        button {
-            padding: 10px;
-            background-color: #333;
-            color: #fff;
-            border: none;
-            cursor: pointer;
         }
 
         a {
             text-decoration: none;
             color: #333;
             margin-left: 10px;
+            display: block;
+            margin-top: 20px;
         }
 
         a:hover {
@@ -139,55 +48,12 @@
 </head>
 
 <body>
-    <hr>
-
-    <form id="insert-form" name="insert-form">
-        <center>
-            <h1>Led</h1>
-            <hr size="10" color="black">
-            <p>
-                <input hidden type="text" id="identificador" name="identificador" readonly>
-            </p>
-            <p>
-                <label for="nombre">Dispositivo:</label>
-                <input type="text" id="nombre" name="nombre" readonly>
-            </p>
-            <label>Estado:</label>
-            <div class="switch-container">
-                <span class="switch-label">Apagado</span>
-                <label class="switch">
-                    <input type="checkbox" name="status" id="status">
-                    <span class="slider round"></span>
-                </label>
-                <span class="switch-label">Encendido</span>
-            </div>
-            <p>
-                <button type="button" onclick="updateDispositivo()">Enviar</button>
-                <a href="/">Regresar</a>
-            </p>
-        </center>
-    </form>
-
-    <script>
-        function updateDispositivo() {
-            var identificador = document.getElementById("identificador").value;
-            var nombre = document.getElementById("nombre").value;
-            var estadoCheckbox = document.getElementById("status").checked;
-
-            switch (true) {
-                case estadoCheckbox:
-                    console.log("Estado Verdadero");
-                    break;
-                default:
-                    console.log("Estado Falso");
-                    break;
-            }
-
-            var estado = estadoCheckbox ? 1 : 0;
-            var estado = estado.toString()
-            console.log(estado);
-            updateData(identificador, nombre, estado);
-        }
-    </script>
+    <center>
+        <h1>Potenciometro</h1>
+        <hr size="10" color="black">
+        <div id="detalle"></div>
+        <a href="/">Regresar</a>
+    </center>
 </body>
+
 </html>
