@@ -45,77 +45,13 @@
         }
 
         input[type="text"] {
-            width: 20%;
+            width: 100%;
             padding: 10px;
             margin-top: 5px;
         }
 
-        .switch-container {
-            display: flex;
-            align-items: center;
-        }
-
-        .switch-label {
-            margin-right: 10px;
-        }
-
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 60px;
-            height: 34px;
-        }
-
-        .switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            -webkit-transition: .4s;
-            transition: .4s;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 26px;
-            width: 26px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            -webkit-transition: .4s;
-            transition: .4s;
-        }
-
-        input:checked+.slider {
-            background-color: #2196F3;
-        }
-
-        input:focus+.slider {
-            box-shadow: 0 0 1px #2196F3;
-        }
-
-        input:checked+.slider:before {
-            -webkit-transform: translateX(26px);
-            -ms-transform: translateX(26px);
-            transform: translateX(26px);
-        }
-
-        .slider.round {
-            border-radius: 34px;
-        }
-
-        .slider.round:before {
-            border-radius: 50%;
+        input[type="checkbox"] {
+            margin-top: 10px;
         }
 
         button {
@@ -139,6 +75,10 @@
 </head>
 
 <body>
+    <div id="menu">
+        <h1>Dispositivos</h1>
+    </div>
+
     <hr>
 
     <form id="insert-form" name="insert-form">
@@ -152,15 +92,8 @@
                 <label for="nombre">Dispositivo:</label>
                 <input type="text" id="nombre" name="nombre" readonly>
             </p>
-            <label>Estado:</label>
-            <div class="switch-container">
-                <span class="switch-label">Apagado</span>
-                <label class="switch">
-                    <input type="checkbox" name="status" id="status">
-                    <span class="slider round"></span>
-                </label>
-                <span class="switch-label">Encendido</span>
-            </div>
+            <label for="estado">Estado:</label>
+            <input type="checkbox" name="status" id="status">
             <p>
                 <button type="button" onclick="updateDispositivo()">Enviar</button>
                 <a href="/">Regresar</a>
@@ -169,49 +102,21 @@
     </form>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Obtén el parámetro 'id' de la URL
-            const urlParams = new URLSearchParams(window.location.search);
-            const dispositivo = urlParams.get('identificador');
-
-            // Función para obtener un solo registro por su ID
-            function getDispositivoById(dispositivo) {
-                const request = new XMLHttpRequest();
-                request.open('GET', "https://backend-iot-jadc-e65f36ce2ffb.herokuapp.com/dispositivos/" + dispositivo);
-                request.send();
-
-                request.onload = function () {
-                    if (request.status === 200) {
-                        const dispositivo_e = JSON.parse(request.responseText);
-                        console.log(dispositivo_e);
-
-                        const identificador = document.getElementById("identificador");
-                        const nombre = document.getElementById("nombre");
-
-                        identificador.value = dispositivo_e.id;
-                        nombre.value = dispositivo_e.dispositivo;
-
-                        document.getElementById("status").checked = dispositivo_e.valor === 1;
-                    } else {
-                        console.error('Error al obtener el dispositivo:', request.status, request.statusText);
-                    }
-                };
-            }
-
-            // Llama a la función para obtener y mostrar el registro
-            getDispositivoById(dispositivo);
-        });
-
         function updateDispositivo() {
             var identificador = document.getElementById("identificador").value;
             var nombre = document.getElementById("nombre").value;
+
+            // Obtén el estado del checkbox
             var estadoCheckbox = document.getElementById("status").checked;
 
+            // Convierte el estado del checkbox a un valor numérico (0 o 1)
             var estado = estadoCheckbox ? 1 : 0;
 
+            var estado = estado.toString()
             console.log(estado);
             updateData(identificador, nombre, estado);
         }
     </script>
 </body>
+
 </html>
