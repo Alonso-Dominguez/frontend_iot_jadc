@@ -1,56 +1,196 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dispositivos</title>
+    <link rel="stylesheet" href="../static/css/styles.css">
     <script type="text/javascript" src="../static/js/update.js"></script>
-    <title>Dispositvos</title>
     <style>
-        input:read-only{
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        center {
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        hr {
+            border: 1px solid #333;
+            margin: 20px 0;
+        }
+
+        form {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0;
+        }
+
+        input:read-only {
             background-color: aliceblue;
             text-align: center;
         }
+
+        input[type="text"] {
+            width: 20%;
+            padding: 10px;
+            margin-top: 5px;
+        }
+
+        .switch-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .switch-label {
+            margin-right: 10px;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        input:checked+.slider {
+            background-color: #2196F3;
+        }
+
+        input:focus+.slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+
+        input:checked+.slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
+
+        .slider.round {
+            border-radius: 34px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        a {
+            text-decoration: none;
+            color: #333;
+            margin-left: 10px;
+        }
+
+        a:hover {
+            color: #000;
+        }
     </style>
 </head>
+
 <body>
-    <center><h1>Editar</h1>
-    <hr size="10" color="black">
+    <hr>
+
     <form id="insert-form" name="insert-form">
-        <p>
-        <input hidden type="text" id="identificador" name="identificador" readonly>
-       <!--<input type="text" id="emailInput" name="email">-->
-        </p>
-        <p>
-        <label for="nombre">Dispositivo:</label>
-        <input type="text" id="nombre" name="nombre" readonly>
-        </p>
-        <label for="estado">Estado:</label>
-        <!-- Cambia el id del checkbox a "status" -->
-        <input type="checkbox" name="status" id="status">
-
-        <p>
-            <button type="button" onclick="updateDispositivo()">Enviar</button>
-            <a href="/">Regresar</a>
-        </p>
+        <center>
+            <h1>Led</h1>
+            <hr size="10" color="black">
+            <p>
+                <input hidden type="text" id="identificador" name="identificador" readonly>
+            </p>
+            <p>
+                <label for="nombre">Dispositivo:</label>
+                <input type="text" id="nombre" name="nombre" readonly>
+            </p>
+            <label>Estado:</label>
+            <div class="switch-container">
+                <span class="switch-label">Apagado</span>
+                <label class="switch">
+                    <input type="checkbox" name="status" id="status">
+                    <span class="slider round"></span>
+                </label>
+                <span class="switch-label">Encendido</span>
+            </div>
+            <p>
+                <button type="button" onclick="handleButtonClick()">Enviar</button>
+                <a href="/">Regresar</a>
+            </p>
+        </center>
     </form>
-</center>
-<script>
-    function updateDispositivo() {
-        var identificador = document.getElementById("identificador").value;
-        var nombre = document.getElementById("nombre").value;
-        
-        // Obtén el estado del checkbox
-        var estadoCheckbox = document.getElementById("status").checked;
-        
-        // Convierte el estado del checkbox a un valor numérico (0 o 1)
-        var estado = estadoCheckbox ? 1 : 0;
 
-        var estado = estado.toString()
-        console.log(estado);
-        updateData(identificador, nombre, estado);
-    }
-</script>
+    <script>
+        function handleButtonClick() {
+            var identificador = document.getElementById("identificador").value;
+            var nombre = document.getElementById("nombre").value;
+            var estadoCheckbox = document.getElementById("status").checked;
+
+            switch (true) {
+                case estadoCheckbox:
+                    // Código cuando el estado es verdadero
+                    console.log("Estado Verdadero");
+                    // Puedes agregar más lógica aquí si es necesario
+                    break;
+                default:
+                    // Código cuando el estado es falso
+                    console.log("Estado Falso");
+                    // Puedes agregar más lógica aquí si es necesario
+                    break;
+            }
+
+            // Puedes agregar aquí cualquier otra lógica que necesites.
+            // También puedes llamar a la función updateData() si es necesario.
+        }
+    </script>
 </body>
-
 
 </html>
