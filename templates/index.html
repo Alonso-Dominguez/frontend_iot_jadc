@@ -1,31 +1,83 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Pagina Inicial</title>
-        <script type="text/javascript" src="../static/js/get_all.js"></script>
-    </head>
-    <body>
-        <center>
-            <div id="menu">
-                <h1>Dispositvos</h1>
-            </div>
 
-        <hr size="10" color="black">
-        <br>
-        <table border="1" id="table_dispositivos">
-            <thead id="thead_dispositivos">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contactos</title>
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <script type="text/javascript" src="../static/js/get_all.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        #menu {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        hr {
+            border: 1px solid #333;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 80%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="menu">
+        <h1>Dispositivos</h1>
+    </div>
+
+    <hr>
+
+    <table>
+        <thead>
+            <tr>
                 <th>Dispositivo</th>
                 <th>Estado</th>
                 <th>Opciones</th>
-            </thead>
-            <tbody id="tbody_dispositivos">
-            </tbody>
-        </table>
-    </center>
-        <script>
-            document.body.onload = getAll();
-        </script>
-    </body>
+            </tr>
+        </thead>
+        <tbody id="tbody_dispositivos">
+        </tbody>
+    </table>
+
+    <script>
+        document.body.onload = getAll();
+    </script>
+</body>
+
 </html>
